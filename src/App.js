@@ -49,7 +49,7 @@ class App extends Component {
             </div>
         </MediaQuery>
         <div className="map">
-            <Map/>
+            <Map locations = {locations}/>
         </div>
       </div>
     );
