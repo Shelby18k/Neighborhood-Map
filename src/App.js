@@ -5,13 +5,13 @@ import Sidebar from './Sidebar';
 import Map from './Map';
 
 const locations= [
-                {title: 'Cafe Ivy', location:{lat:30.461089, lng:78.0944515}},
-                {title: 'Shiv Temple', location:{lat:30.4627351, lng:78.0936576}},
-                {title: 'St Peters', location:{lat:30.4628921, lng:78.0924487}},
-                {title: 'Klick Cafe Laal Tibba', location:{lat:30.4655996, lng:78.0939008}},
-                {title: 'Rokeby Manor, Mussoorie', location:{lat:30.4611909, lng:78.0917625}},
-                {title: 'La Villa Bethany', location:{lat:30.4610914, lng:78.0960068}},
-                {title: 'State Bank of India', location:{lat:30.4609442, lng:78.0948021}},
+                {title: 'Cafe Ivy', location:{lat:30.461089, lng:78.094999}},
+                {title: 'Shiv Temple', location:{lat:30.461868, lng:78.096833}},
+                {title: 'St Peters', location:{lat:30.463898, lng:78.095751}},
+                {title: 'Klick Cafe Laal Tibba', location:{lat:30.466685, lng:78.095001}},
+                {title: 'Rokeby Manor, Mussoorie', location:{lat:30.460217, lng:78.096442}},
+                {title: 'La Villa Bethany', location:{lat:30.458669, lng:78.098145}},
+                {title: 'State Bank of India', location:{lat:30.460941, lng:78.094922}},
 
                ]
 
