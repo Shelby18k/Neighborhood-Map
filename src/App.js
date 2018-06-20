@@ -5,7 +5,6 @@ import Sidebar from './Sidebar';
 import Map from './Map';
 
 const locations= [
-                {title: 'Cafe Ivy', location:{lat:30.461089, lng:78.094999}},
                 {title: 'Shiv Temple', location:{lat:30.461868, lng:78.096833}},
                 {title: 'St Peters', location:{lat:30.463898, lng:78.095751}},
                 {title: 'Klick Cafe Laal Tibba', location:{lat:30.466685, lng:78.095001}},
@@ -39,13 +38,13 @@ class App extends Component {
       </MediaQuery>
         <MediaQuery query="(max-device-width:640px)">
             <div className={this.state.condition? "display-sidebar":"hide-sidebar"}>
-              {this.state.condition && <Sidebar/>}
+              {this.state.condition && <Sidebar locations={locations}/>}
             </div>
         </MediaQuery>
 
         <MediaQuery query="(min-device-width:650px">
             <div className={this.state.condition? "display-sidebar-increase":"hide-sidebar"}>
-              {this.state.condition && <Sidebar/>}
+              {this.state.condition && <Sidebar locations={locations}/>}
             </div>
         </MediaQuery>
         <div className="map">
