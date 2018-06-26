@@ -17,6 +17,7 @@ class Map extends Component {
 		loadMapJS('https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=AIzaSyAepUQIprBToNYrHGFFKnyPk3lPh-XdwKg&v=3&callback=initMap')
 	}	
 	initMap=()=>{
+		var markersArray = []
 		const largeInfoWindow = new window.google.maps.InfoWindow()
 		const mapView = document.getElementById('map')
 		let h = window.innerHeight
@@ -47,7 +48,8 @@ class Map extends Component {
 			var marker = new window.google.maps.Marker({
 				position: location.location,
 				animation: window.google.maps.Animation.DROP,
-				map:map
+				map:map,
+				title:location.title
 
 			})
 
@@ -60,7 +62,11 @@ class Map extends Component {
 				infowindow.open(map,marker)
 				infowindow.close()
 			})
+
+			markersArray.push(marker)
 		})
+
+		this.props.markers(markersArray)
 	}
 
 

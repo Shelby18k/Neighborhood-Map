@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ListItems from './ListItems'
+// import ListItems from './ListItems'
 class Sidebar extends Component {
 	render(){
 		let loc = this.props.locations
@@ -8,9 +8,10 @@ class Sidebar extends Component {
 		return (
 			<div className="sidebar-input">
 				<ol>
-				{loc.map((l)=>(
-					<li key={i++}><ListItems name={l.title}/>
-					{loc.title}</li>
+				{loc.map((currentMarker,index)=>(
+					<li key={i++} role="listitem" tabIndex="0"
+						onClick={()=> this.props.openWindow(currentMarker,currentMarker.title)}>
+					<h1 className="listitems">{currentMarker.title}</h1></li>
 				))}
 				</ol>
 			</div>
