@@ -52,7 +52,7 @@ class Map extends Component {
 			})
 
 			marker.addListener('click', ()=>{
-				this.props.openWindow(marker,location.title)
+				this.props.openWindow(marker,location.title,location.location.lat,location.location.lng)
 				infowindow.open(map,marker)
 				infowindow.close()
 			})

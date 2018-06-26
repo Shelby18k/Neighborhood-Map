@@ -5,12 +5,12 @@ import Sidebar from './Sidebar';
 import Map from './Map';
 
 const locations= [
-                {title: 'Shiv Temple', location:{lat:30.461868, lng:78.096833}},
-                {title: 'St Peters', location:{lat:30.463898, lng:78.095751}},
-                {title: 'Klick Cafe Laal Tibba', location:{lat:30.466685, lng:78.095001}},
-                {title: 'Rokeby Manor, Mussoorie', location:{lat:30.460217, lng:78.096442}},
-                {title: 'La Villa Bethany', location:{lat:30.458669, lng:78.098145}},
-                {title: 'State Bank of India', location:{lat:30.460941, lng:78.094922}},
+                {title: 'Char Dukan', location:{lat:30.4608859, lng:78.0929282}},
+                {title: 'Tavern Restaurant', location:{lat:30.455175, lng:78.0789693}},
+                {title: 'Clock Tower Cafe', location:{lat:30.4554958, lng:78.0846834}},
+                {title: 'Chick Chocolate', location:{lat:30.4554441, lng:78.0767585}},
+                {title: 'Lovely Omelette Center', location:{lat:30.4554161, lng:78.0775648}},
+                {title: 'Landour Bakehouse', location:{lat:30.4568791, lng:78.1000129}},
 
                ]
 
@@ -39,17 +39,45 @@ class App extends Component {
     this.setState({markers:marker})
   }
 
-  openInfoWindow=(marker,title)=>{
+  openInfoWindow=(marker,title,lat,lng)=>{
+    var component = this
     this.closeInfoWindow();
     this.state.infowindow.open(this.state.map,marker)
     marker.setAnimation(window.google.maps.Animation.BOUNCE);
     this.setState({
       prevmarker: marker
     })
-    this.state.infowindow.setContent(title)
+    this.state.infowindow.setContent(title+"\n")
     this.state.map.setCenter(marker.getPosition())
     this.state.map.panBy(0,-200)
+
+    var foursquare = require('react-native-foursquare-api')({
+    clientID: 'TS2T3WEGTKDDFTW3MIROWDZS235NA3QB324QSVLZPXF5CZVW',
+    clientSecret: '2OCOEY2LADI3TF1TM10DSXUNXTVQK2QOKGURBGE5YG3L4DMM',
+    style: 'foursquare', // default: 'foursquare'
+    version: '20140806' //  default: '20140806'
+    });
+    
+    var params = {
+    "ll": lat+", "+lng,           //"10.652814,-61.3969835"
+    "query": title
+    };
+
+    foursquare.venues.getVenues(params)
+      .then(function(venues) {
+        title = String(venues.response.venues[0].name)
+        let body = "<strong>"+title+"</strong>" + "<br/>"
+        body += "Tip Count: " + String(venues.response.venues[0].stats.tipCount) + "<br/>"
+        body += "CheckIns Count: " + String(venues.response.venues[0].stats.checkinsCount) + "<br/>"
+        body += "Users Count: " + String(venues.response.venues[0].stats.usersCount) + "<br/>"
+        body += "Visits Count: " + String(venues.response.venues[0].stats.visitsCount) + "<br/>"
+        component.state.infowindow.setContent(body)
+      })
+      .catch(function(err){
+        component.state.infowindow.setContent("<strong>Network Error</strong>")
+      });
   }
+
 
   closeInfoWindow=()=>{
     if (this.state.prevmarker) {
@@ -71,7 +99,7 @@ class App extends Component {
                     <div className="hamburger2"></div>
                     <div className="hamburger3"></div>
                 </div>
-                <h1>Neighborhood Map</h1>
+                <h1 tabIndex="0" aria-label="Main Heading">Neighborhood Map</h1>
               </div>
       </MediaQuery>
         <MediaQuery query="(max-device-width:640px)">
@@ -82,7 +110,7 @@ class App extends Component {
 
         <MediaQuery query="(min-device-width:650px">
             <div className={this.state.condition? "display-sidebar-increase":"hide-sidebar"}>
-              {this.state.condition && <Sidebar locations={this.state.markers} openWindow = {this.openInfoWindow} closeWindow = {this.closeInfoWindow} iWindow={this.setInfoWindow} sMap = {this.setMap}/>}
+              {this.state.condition && <Sidebar locations={this.state.markers} openWindow = {this.openInfoWindow} places={locations}/>}
             </div>
         </MediaQuery>
         <div className="map">
