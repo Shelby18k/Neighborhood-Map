@@ -5,13 +5,10 @@ class Map extends Component {
 	constructor(props){
 		super(props)
 		this.state={
-			map: '',
-			infowindow: '',
-			prevmarker: '',
 			allocations:[]
 		}
-		this.openInfoWindow = this.openInfoWindow.bind(this)
-		this.closeInfoWindow = this.closeInfoWindow.bind(this)
+		// this.openInfoWindow = this.openInfoWindow.bind(this)
+		// this.closeInfoWindow = this.closeInfoWindow.bind(this)
 	}
 
 	componentDidMount(){
@@ -34,16 +31,14 @@ class Map extends Component {
 		let InfoWindow = new window.google.maps.InfoWindow({});
 
 		window.google.maps.event.addListener(InfoWindow,'closeclick',()=>{
-			this.closeInfoWindow();
+			this.props.closeWindow();
 		})
 
-		this.setState({
-			map:map,
-			infowindow:InfoWindow
-		})
+		this.props.sMap(map)
+		this.props.iWindow(InfoWindow)
 
 		window.google.maps.event.addListener(map, 'click',()=> {
-            this.closeInfoWindow();
+            this.props.closeWindow();
 		});
 
 
@@ -61,33 +56,11 @@ class Map extends Component {
 			})
 
 			marker.addListener('click', ()=>{
-				this.openInfoWindow(marker,location.title)
+				this.props.openWindow(marker,location.title)
 				infowindow.open(map,marker)
 				infowindow.close()
 			})
 		})
-	}
-
-	openInfoWindow=(marker,title)=>{
-		this.closeInfoWindow();
-		this.state.infowindow.open(this.state.map,marker)
-		marker.setAnimation(window.google.maps.Animation.BOUNCE);
-		this.setState({
-			prevmarker: marker
-		})
-		this.state.infowindow.setContent(title)
-		this.state.map.setCenter(marker.getPosition())
-		this.state.map.panBy(0,-200)
-	}
-
-	closeInfoWindow=()=>{
-		if (this.state.prevmarker) {
-			this.state.prevmarker.setAnimation(null)
-		}
-		this.setState({
-			prevmarker: ''
-		})
-		this.state.infowindow.close()
 	}
 
 

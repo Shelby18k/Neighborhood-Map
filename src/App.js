@@ -18,9 +18,42 @@ const locations= [
 class App extends Component {
   state = {
     condition:false,
+    infowindow: '',
+    prevmarker: '',
+    map: '',
 }
   widthIncrease = () =>{
     this.setState({condition:!this.state.condition})
+  }
+
+  setMap = (m) =>{
+    this.setState({map:m})
+  }
+
+  setInfoWindow = (infoWindow) =>{
+    this.setState({infowindow: infoWindow})
+  }
+
+  openInfoWindow=(marker,title)=>{
+    this.closeInfoWindow();
+    this.state.infowindow.open(this.state.map,marker)
+    marker.setAnimation(window.google.maps.Animation.BOUNCE);
+    this.setState({
+      prevmarker: marker
+    })
+    this.state.infowindow.setContent(title)
+    this.state.map.setCenter(marker.getPosition())
+    this.state.map.panBy(0,-200)
+  }
+
+  closeInfoWindow=()=>{
+    if (this.state.prevmarker) {
+      this.state.prevmarker.setAnimation(null)
+    }
+    this.setState({
+      prevmarker: ''
+    })
+    this.state.infowindow.close()
   }
   
   render() {
@@ -48,7 +81,7 @@ class App extends Component {
             </div>
         </MediaQuery>
         <div className="map">
-            <Map locations = {locations}/>
+            <Map locations = {locations} openWindow = {this.openInfoWindow} closeWindow = {this.closeInfoWindow} iWindow={this.setInfoWindow} sMap = {this.setMap}/>
         </div>
       </div>
     );
