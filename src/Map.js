@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ListItems from './ListItems'
 class Map extends Component {
 
 	constructor(props){
@@ -7,8 +6,6 @@ class Map extends Component {
 		this.state={
 			allocations:[]
 		}
-		// this.openInfoWindow = this.openInfoWindow.bind(this)
-		// this.closeInfoWindow = this.closeInfoWindow.bind(this)
 	}
 
 	componentDidMount(){
@@ -18,10 +15,7 @@ class Map extends Component {
 	}	
 	initMap=()=>{
 		var markersArray = []
-		const largeInfoWindow = new window.google.maps.InfoWindow()
 		const mapView = document.getElementById('map')
-		let h = window.innerHeight
-		h+=10
 		mapView.style.height = 500 + 'px'
 		var map = new window.google.maps.Map(mapView,{
 			center:{lat:30.4637624,lng:78.0970646},
@@ -76,9 +70,6 @@ class Map extends Component {
    return(
    			<div>
    				<div id="map">
-   				</div>
-   				<div style={{display:`none`}}>
-   					<ListItems openWindow={this.openInfoWindow}/>
    				</div>
    			</div>
  	     

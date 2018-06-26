@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import ListItems from './ListItems'
 class Sidebar extends Component {
 	render(){
 		let loc = this.props.locations
