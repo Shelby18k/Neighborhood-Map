@@ -12,4 +12,4 @@ It shows 6 places details using Google maps and FourSqaure API
 - Google Maps
 - FourSquare API
 - React FourSquare API module
-### `react-native-foursquare-api`
+### `npm install react-native-foursquare-api`
