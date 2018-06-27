@@ -113,7 +113,7 @@ class App extends Component {
               {this.state.condition && <Sidebar locations={this.state.markers} openWindow = {this.openInfoWindow} places={locations}/>}
             </div>
         </MediaQuery>
-        <div className="map">
+        <div className="map" role="application">
             <Map locations = {locations} openWindow = {this.openInfoWindow} closeWindow = {this.closeInfoWindow} iWindow={this.setInfoWindow} sMap = {this.setMap} markers = {this.setMarkers}/>
         </div>
       </div>

@@ -119,3 +119,11 @@
   cursor: pointer;
   font-size: 15px;
 }
+
+.input-filter{
+  width: 150px;
+}
+
+.listitems-list{
+  list-style-type: none;
+}
