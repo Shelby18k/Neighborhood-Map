@@ -39,6 +39,13 @@ class App extends Component {
     this.setState({markers:marker})
   }
 
+
+  markersFilter = (m) =>{
+    this.state.markers.map(marker=>{
+      marker.setMap(m);
+    })
+  }
+
   openInfoWindow=(marker,title,lat,lng)=>{
     var component = this
     this.closeInfoWindow();
@@ -104,17 +111,17 @@ class App extends Component {
       </MediaQuery>
         <MediaQuery query="(max-device-width:640px)">
             <div className={this.state.condition? "display-sidebar":"hide-sidebar"}>
-              {this.state.condition && <Sidebar locations={locations} openWindow = {this.openInfoWindow} closeWindow = {this.closeInfoWindow} iWindow={this.setInfoWindow} sMap = {this.setMap}/>}
+              {this.state.condition && <Sidebar locations={locations} openWindow = {this.openInfoWindow} closeWindow = {this.closeInfoWindow} iWindow={this.setInfoWindow} sMap = {this.setMap} markersFilter={this.markersFilter} mapWindow={this.state.map}/>}
             </div>
         </MediaQuery>
 
         <MediaQuery query="(min-device-width:650px">
             <div className={this.state.condition? "display-sidebar-increase":"hide-sidebar"}>
-              {this.state.condition && <Sidebar locations={this.state.markers} openWindow = {this.openInfoWindow} places={locations}/>}
+              {this.state.condition && <Sidebar locations={this.state.markers} openWindow = {this.openInfoWindow} places={locations} markersFilter={this.markersFilter} mapWindow={this.state.map}/>}
             </div>
         </MediaQuery>
         <div className="map" role="application">
-            <Map locations = {locations} openWindow = {this.openInfoWindow} closeWindow = {this.closeInfoWindow} iWindow={this.setInfoWindow} sMap = {this.setMap} markers = {this.setMarkers}/>
+            <Map locations = {locations} openWindow = {this.openInfoWindow} closeWindow = {this.closeInfoWindow} iWindow={this.setInfoWindow} sMap = {this.setMap} markers={this.setMarkers} />
         </div>
       </div>
     );

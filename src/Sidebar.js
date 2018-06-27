@@ -8,9 +8,11 @@ class Sidebar extends Component {
 
 	updateQuery=(query)=>{
 	this.setState({query:query.trim()})
+	
 }
 
 	render(){
+		this.props.markersFilter(null)
 		let loc = this.props.locations
 		let places = this.props.places
 		const query = this.state.query
@@ -18,8 +20,14 @@ class Sidebar extends Component {
 		if(query){
 			const match = new RegExp(escapeRegExp(query),'i')
 			showingPlaces = loc.filter((p) => match.test(p.title))
+			showingPlaces.map(marker=>{
+				marker.setMap(this.props.mapWindow)
+			})
 		}else{
 			showingPlaces = loc
+			showingPlaces.map(marker=>{
+				marker.setMap(this.props.mapWindow)
+			})
 		}
 
 		let i=0

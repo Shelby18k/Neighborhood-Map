@@ -10,6 +10,7 @@ class Map extends Component {
 
 	componentDidMount(){
 		window.initMap = this.initMap;
+		window.gm_authFailure = this.gm_authFailure
 
 		loadMapJS('https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=AIzaSyAepUQIprBToNYrHGFFKnyPk3lPh-XdwKg&v=3&callback=initMap')
 	}	
@@ -61,6 +62,10 @@ class Map extends Component {
 		})
 
 		this.props.markers(markersArray)
+	}
+
+	gm_authFailure(){
+		window.alert("Google Maps error, Can't be Loaded")
 	}
 
 
